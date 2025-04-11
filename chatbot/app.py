@@ -1,10 +1,11 @@
+import os
 from flask import Flask, request
 import requests
 
 app = Flask(__name__)
 
-VERIFY_TOKEN = 'TEAkids'
-PAGE_ACCESS_TOKEN = 'EAAID13bJC8sBOZCAJ0jgfXdF6vRwTZBs5yNP5WLcFAH8Ad0ZAMG16oRKZCeQtM6ZB371hZCcsb8uIT2Q5EfF5si56SAWePBUAq7q7uZClYtdfeorhkfsmO0w9CZC8XpsRMc7H3rJTe8Wxgc21t3NhY9fSvQAbEuFJi1CJCm0qmZC2FJAcaM8Fy9Y9Q61xWhU1myrZCwgZDZD'
+VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN', 'TEAkids')
+PAGE_ACCESS_TOKEN = os.environ.get('EAAID13bJC8sBO8YrpsG6ZBMym6eTaH7RVeVI6vugyedGOPRTJvLIpZBVnsxaQmWRY5Wfqi50vpQt9BnLgdmCNW5xn1iKzk2e8RSz73xrNvOapi8tVuPDZBZCxs1gbC7BJ81TkkrLv3611qZCV7Wa1ZCu3i594d5tqZAur8UIiRHinbSksavp0hStZBfxWPhZBxLIPOQZDZD')
 
 
 def enviar_mensaje(recipient_id, mensaje):
@@ -40,7 +41,6 @@ def recibir_mensajes():
 
 
 def manejar_respuesta(sender_id, texto):
-    # Mensaje inicial
     if 'hola' in texto or 'información' in texto:
         enviar_mensaje(sender_id,
                        "¡Hola! Gracias por escribirnos. Soy parte del equipo de TEA KIDS. ¿Cuántos años tiene tu hijo y si tiene diagnóstico o ha asistido a escuela o terapia?")
@@ -92,5 +92,5 @@ def manejar_respuesta(sender_id, texto):
 
 # Ejecutar el servidor
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
