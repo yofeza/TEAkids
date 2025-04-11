@@ -1,12 +1,14 @@
 import os
 from flask import Flask, request
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN', 'TEAkids')
-PAGE_ACCESS_TOKEN = os.environ.get('EAAID13bJC8sBO8YrpsG6ZBMym6eTaH7RVeVI6vugyedGOPRTJvLIpZBVnsxaQmWRY5Wfqi50vpQt9BnLgdmCNW5xn1iKzk2e8RSz73xrNvOapi8tVuPDZBZCxs1gbC7BJ81TkkrLv3611qZCV7Wa1ZCu3i594d5tqZAur8UIiRHinbSksavp0hStZBfxWPhZBxLIPOQZDZD')
-
+PAGE_ACCESS_TOKEN = os.environ.get('PAGE_ACCESS_TOKEN')
 
 def enviar_mensaje(recipient_id, mensaje):
     url = 'https://graph.facebook.com/v17.0/me/messages'
